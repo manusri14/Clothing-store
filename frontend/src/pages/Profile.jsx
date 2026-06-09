@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
-import { User } from 'lucide-react';
+import { User, LogOut } from 'lucide-react';
 
 const Profile = () => {
-  const { user, login } = useAuth(); // Assuming login updates user context
+  const { user, logout } = useAuth(); 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
@@ -120,6 +120,15 @@ const Profile = () => {
             {isSubmitting ? 'Saving...' : 'Save Changes'}
           </button>
         </form>
+
+        <div className="mt-8 pt-8 border-t border-gray-100">
+          <button 
+            onClick={logout}
+            className="w-full py-4 bg-red-50 hover:bg-red-100 text-red-600 uppercase font-bold tracking-widest rounded transition flex items-center justify-center gap-2"
+          >
+            <LogOut size={20} /> Logout
+          </button>
+        </div>
       </div>
     </div>
   );

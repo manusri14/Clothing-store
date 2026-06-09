@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, User, ShoppingBag, Sparkles, UserCircle2 } from 'lucide-react';
+import { Home, User, ShoppingBag, Sparkles, UserCircle2, ClipboardList } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const BottomNav = () => {
@@ -36,6 +36,11 @@ const BottomNav = () => {
         <Link to="/ai-stylist" className={`flex flex-col items-center gap-1 transition-colors ${isActive('/ai-stylist') ? 'text-premium-gold' : 'hover:text-premium-gold'}`}>
           <Sparkles size={20} />
           <span className="text-[9px] font-bold uppercase tracking-wider">AI</span>
+        </Link>
+
+        <Link to="/orders" className={`flex flex-col items-center gap-1 transition-colors ${isActive('/orders') ? 'text-black' : 'hover:text-black'}`}>
+          <ClipboardList size={20} />
+          <span className="text-[9px] font-bold uppercase tracking-wider">Orders</span>
         </Link>
 
       </div>

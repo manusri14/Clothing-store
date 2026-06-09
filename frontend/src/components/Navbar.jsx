@@ -54,9 +54,6 @@ const Navbar = () => {
                     <User size={20} />
                   )}
                 </Link>
-                <button onClick={logout} className="text-gray-600 hover:text-red-500 transition-colors ml-2" title={`Logout ${user.name}`}>
-                  <LogOut size={20} />
-                </button>
               </div>
             ) : (
               <Link to="/login" className="text-gray-600 hover:text-black transition-colors" title="Login">
