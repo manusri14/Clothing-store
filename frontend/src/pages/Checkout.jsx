@@ -58,7 +58,7 @@ const Checkout = () => {
       // For now, I'll navigate and the user can clear the cart themselves, or I can add clearCart to context.
       // Better yet, just reload window or go to orders
       setTimeout(() => {
-        window.location.href = '/orders';
+        navigate('/orders');
       }, 1000);
       
     } catch (error) {
