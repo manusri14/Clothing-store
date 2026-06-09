@@ -29,7 +29,9 @@ router.post('/', protect, async (req, res) => {
 // @route   GET /api/orders/myorders
 router.get('/myorders', protect, async (req, res) => {
   try {
-    const orders = await Order.find({ user: req.user._id });
+    const orders = await Order.find({ user: req.user._id })
+      .populate('orderItems.product', 'name images')
+      .sort({ createdAt: -1 });
     res.json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -39,7 +41,10 @@ router.get('/myorders', protect, async (req, res) => {
 // @access  Private/Admin
 router.get('/', protect, admin, async (req, res) => {
   try {
-    const orders = await Order.find({}).populate('user', 'id name email');
+    const orders = await Order.find({})
+      .populate('user', 'id name email')
+      .populate('orderItems.product', 'name')
+      .sort({ createdAt: -1 });
     res.json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });

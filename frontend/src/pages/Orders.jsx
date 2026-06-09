@@ -77,8 +77,17 @@ const Orders = () => {
                   {order.orderItems.map((item, idx) => (
                     <div key={idx} className="flex justify-between items-center text-sm">
                       <div className="flex items-center gap-4">
-                        <div className="font-medium">{item.qty}x</div>
-                        <div className="text-gray-700">Product ID: {item.product} (Size: {item.size || 'M'})</div>
+                        <div className="w-12 h-12 bg-gray-100 rounded overflow-hidden flex-shrink-0">
+                          {item.product && item.product.images && item.product.images[0] ? (
+                            <img src={item.product.images[0]} alt={item.product.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-xs text-gray-400">No Img</div>
+                          )}
+                        </div>
+                        <div>
+                          <p className="font-bold text-premium-dark">{item.product ? item.product.name : 'Unknown Product'}</p>
+                          <p className="text-gray-500 text-xs">Qty: {item.qty} | Size: {item.size || 'M'}</p>
+                        </div>
                       </div>
                       <div className="font-bold">${(item.price * item.qty).toFixed(2)}</div>
                     </div>
