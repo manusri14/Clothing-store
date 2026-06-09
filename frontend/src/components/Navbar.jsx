@@ -44,9 +44,6 @@ const Navbar = () => {
               <div className="flex items-center gap-4">
                 <Link to="/orders" className="hidden md:block text-xs font-bold uppercase tracking-widest text-gray-600 hover:text-black">Orders</Link>
                 <Link to="/profile" className="hidden md:block text-xs font-bold uppercase tracking-widest text-gray-600 hover:text-black">Profile</Link>
-                <Link to="/orders" className="md:hidden text-gray-600 hover:text-black mr-2">
-                  <ClipboardList size={20} />
-                </Link>
                 <Link to="/profile" className="md:hidden text-gray-600 hover:text-black">
                   {user.profilePic ? (
                     <img src={user.profilePic} alt="Profile" className="w-6 h-6 rounded-full object-cover" />
