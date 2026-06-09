@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Showroom from './pages/Showroom';
 import Category from './pages/Category';
+import ProductDetail from './pages/ProductDetail';
 import AiStylist from './pages/AiStylist';
 import UserLogin from './pages/UserLogin';
 import AdminLogin from './pages/AdminLogin';
@@ -50,6 +51,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/showroom" element={<Showroom />} />
               <Route path="/categories/:categoryId" element={<Category />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/ai-stylist" element={<AiStylist />} />
               <Route path="/login" element={<UserLogin />} />
               <Route path="/admin/login" element={<AdminLogin />} />
