@@ -13,6 +13,19 @@ const Checkout = () => {
   const [address, setAddress] = useState(user?.address || '');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  if (!user) {
+    return (
+      <div className="min-h-screen pt-32 pb-20 px-6 text-center">
+        <h2 className="text-3xl font-bold uppercase mb-4">Account Required</h2>
+        <p className="text-gray-500 mb-8 max-w-md mx-auto">Please log in or register to proceed with your checkout and secure your premium items.</p>
+        <div className="flex justify-center gap-4">
+          <button onClick={() => navigate('/login')} className="px-8 py-3 bg-black text-white font-bold uppercase tracking-widest rounded shadow-lg hover:bg-gray-800 transition">Log In</button>
+          <button onClick={() => navigate('/signup')} className="px-8 py-3 bg-white text-black border border-black font-bold uppercase tracking-widest rounded hover:bg-gray-50 transition">Register</button>
+        </div>
+      </div>
+    );
+  }
+
   if (cartItems.length === 0) {
     return (
       <div className="min-h-screen pt-32 pb-20 px-6 text-center">
