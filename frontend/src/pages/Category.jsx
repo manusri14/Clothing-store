@@ -55,7 +55,7 @@ const Category = () => {
       </div>
 
       {/* Product Grid */}
-      <div className="max-w-7xl mx-auto py-20 px-6">
+      <div className="max-w-7xl mx-auto py-10 md:py-20 px-4 sm:px-6">
         <div className="mb-12 border-b border-gray-200 pb-4">
           <h2 className="text-2xl font-medium tracking-wide uppercase text-gray-800">
             {products.length} Items Found
@@ -63,13 +63,13 @@ const Category = () => {
         </div>
 
         {loading ? (
-          <div className="text-center py-20 text-gray-400">Loading {categoryId} collection...</div>
+          <div className="text-center py-10 md:py-20 text-gray-400">Loading {categoryId} collection...</div>
         ) : products.length === 0 ? (
-          <div className="text-center py-20 text-gray-400 text-lg">
+          <div className="text-center py-10 md:py-20 text-gray-400 text-lg">
             No products found in the {categoryId} category yet.
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-8">
             {products.map(product => (
               <ProductCard key={product._id} product={product} />
             ))}

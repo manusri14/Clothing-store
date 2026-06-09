@@ -40,8 +40,8 @@ const CartDrawer = () => {
               ) : (
                 <div className="space-y-6">
                   {cartItems.map((item) => (
-                    <div key={item._id} className="flex gap-4 border-b border-gray-50 pb-6">
-                      <div className="w-24 h-24 bg-gray-100 rounded overflow-hidden">
+                    <div key={item._id} className="flex gap-4 border border-gray-100 rounded-xl p-3 shadow-sm bg-white hover:shadow-md transition">
+                      <div className="w-20 h-20 md:w-24 md:h-24 bg-gray-100 rounded-lg overflow-hidden shrink-0">
                         <img src={item.images[0]} alt={item.name} className="w-full h-full object-cover" />
                       </div>
                       <div className="flex-1 flex flex-col justify-between">
@@ -52,9 +52,9 @@ const CartDrawer = () => {
                               <Trash2 size={16} />
                             </button>
                           </div>
-                          <p className="text-sm text-gray-500 mt-1">Qty: {item.qty}</p>
+                          <p className="text-sm text-gray-500 mt-1 font-medium bg-gray-100 w-fit px-2 py-0.5 rounded-full">Qty: {item.qty}</p>
                         </div>
-                        <p className="font-bold">${item.price}</p>
+                        <p className="font-bold text-lg">${item.price}</p>
                       </div>
                     </div>
                   ))}
@@ -68,7 +68,7 @@ const CartDrawer = () => {
                   <span className="text-lg text-gray-600 font-medium">Total</span>
                   <span className="text-2xl font-bold text-premium-dark">${total.toFixed(2)}</span>
                 </div>
-                <button className="w-full py-4 bg-black text-white uppercase font-bold tracking-wider rounded hover:bg-gray-800 transition">
+                <button className="w-full py-4 bg-black text-white uppercase font-bold tracking-wider rounded-full shadow-lg hover:shadow-xl hover:bg-gray-800 transition-all transform hover:-translate-y-1">
                   Checkout
                 </button>
               </div>

@@ -76,7 +76,7 @@ const Home = () => {
           </motion.div>
         </AnimatePresence>
         
-        <div className="relative z-10 text-center px-4 mt-12">
+        <div className="relative z-10 text-center px-4 mt-8 md:mt-12">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -98,7 +98,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1 }}
-            className="mt-12"
+            className="mt-8 md:mt-12"
           >
             <button 
               onClick={scrollToShop}
@@ -122,7 +122,7 @@ const Home = () => {
       </main>
 
       {/* Featured Collection Section */}
-      <section ref={shopRef} className="py-24 px-6 relative z-10 bg-white">
+      <section ref={shopRef} className="py-12 md:py-24 px-4 sm:px-6 relative z-10 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-12">
             <div>
@@ -132,9 +132,9 @@ const Home = () => {
           </div>
 
           {products.length === 0 ? (
-            <div className="text-center py-20 text-gray-400">Loading collection...</div>
+            <div className="text-center py-10 md:py-20 text-gray-400">Loading collection...</div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-8">
               {products.map(product => (
                 <ProductCard key={product._id} product={product} />
               ))}

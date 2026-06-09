@@ -14,33 +14,38 @@ const BottomNav = () => {
     <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 z-50 px-6 py-3 pb-safe">
       <div className="flex justify-between items-center text-gray-500">
         <Link to="/" className={`flex flex-col items-center gap-1 transition-colors ${isActive('/') ? 'text-black' : 'hover:text-black'}`}>
-          <Home size={24} />
-          <span className="text-[10px] font-bold uppercase tracking-wider">Home</span>
+          <Home size={20} />
+          <span className="text-[9px] font-bold uppercase tracking-wider">Home</span>
         </Link>
         
+        <Link to="/showroom" className={`flex flex-col items-center gap-1 transition-colors ${isActive('/showroom') ? 'text-black' : 'hover:text-black'}`}>
+          <Sparkles size={20} />
+          <span className="text-[9px] font-bold uppercase tracking-wider">Shop</span>
+        </Link>
+
         <Link to="/categories/men" className={`flex flex-col items-center gap-1 transition-colors ${isActive('/categories/men') ? 'text-black' : 'hover:text-black'}`}>
-          <User size={24} />
-          <span className="text-[10px] font-bold uppercase tracking-wider">Men</span>
+          <User size={20} />
+          <span className="text-[9px] font-bold uppercase tracking-wider">Men</span>
         </Link>
 
         <Link to="/categories/women" className={`flex flex-col items-center gap-1 transition-colors ${isActive('/categories/women') ? 'text-black' : 'hover:text-black'}`}>
-          <UserCircle2 size={24} />
-          <span className="text-[10px] font-bold uppercase tracking-wider">Women</span>
+          <UserCircle2 size={20} />
+          <span className="text-[9px] font-bold uppercase tracking-wider">Women</span>
         </Link>
 
         <Link to="/ai-stylist" className={`flex flex-col items-center gap-1 transition-colors ${isActive('/ai-stylist') ? 'text-premium-gold' : 'hover:text-premium-gold'}`}>
-          <Sparkles size={24} />
-          <span className="text-[10px] font-bold uppercase tracking-wider">Stylist</span>
+          <Sparkles size={20} />
+          <span className="text-[9px] font-bold uppercase tracking-wider">AI</span>
         </Link>
 
         <button onClick={toggleCart} className="flex flex-col items-center gap-1 transition-colors hover:text-black relative">
-          <ShoppingBag size={24} />
+          <ShoppingBag size={20} />
           {cartCount > 0 && (
-            <span className="absolute -top-1 right-1 bg-black text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
+            <span className="absolute -top-1 -right-1 bg-black text-white text-[9px] font-bold rounded-full h-3.5 w-3.5 flex items-center justify-center">
               {cartCount}
             </span>
           )}
-          <span className="text-[10px] font-bold uppercase tracking-wider">Cart</span>
+          <span className="text-[9px] font-bold uppercase tracking-wider">Cart</span>
         </button>
       </div>
     </div>

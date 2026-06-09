@@ -23,7 +23,7 @@ const Showroom = () => {
   return (
     <div className="w-full min-h-screen bg-white">
       {/* Editorial Header */}
-      <div className="pt-32 pb-16 px-6 text-center max-w-4xl mx-auto">
+      <div className="pt-24 md:pt-32 pb-8 md:pb-16 px-6 text-center max-w-4xl mx-auto">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -43,9 +43,9 @@ const Showroom = () => {
       </div>
 
       {/* Masonry Grid */}
-      <div className="px-4 md:px-8 pb-24 max-w-screen-2xl mx-auto">
+      <div className="px-4 md:px-8 pb-12 md:pb-24 max-w-screen-2xl mx-auto">
         {loading ? (
-          <div className="flex justify-center py-20">
+          <div className="flex justify-center py-10 md:py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
           </div>
         ) : (
@@ -53,7 +53,7 @@ const Showroom = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6"
+            className="columns-2 lg:columns-3 xl:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6"
           >
             {products.map((product, idx) => (
               <motion.div 
