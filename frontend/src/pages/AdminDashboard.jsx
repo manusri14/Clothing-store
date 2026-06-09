@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const AdminDashboard = () => {
   const { user, logout } = useAuth();
   const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [activeTab, setActiveTab] = useState('products');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -22,12 +23,27 @@ const AdminDashboard = () => {
       try {
         const prodRes = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/products`);
         setProducts(prodRes.data);
+
+        // Only fetch orders if admin
+        if (user && user.role === 'admin') {
+          const ordRes = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/orders`, config);
+          setOrders(ordRes.data);
+        }
       } catch (error) {
         console.error('Error fetching admin data', error);
       }
     };
     fetchData();
   }, [user]);
+
+  const handleUpdateOrderStatus = async (id, status) => {
+    try {
+      const { data } = await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/orders/${id}/status`, { status }, config);
+      setOrders(orders.map(o => o._id === id ? data : o));
+    } catch (error) {
+      alert('Error updating status');
+    }
+  };
 
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this product?')) return;
@@ -158,8 +174,58 @@ const AdminDashboard = () => {
         )}
 
         {activeTab === 'orders' && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center text-gray-500">
-            Order management system coming soon...
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="p-6 border-b border-gray-100 flex justify-between items-center">
+              <h3 className="text-lg font-bold text-premium-dark uppercase">Manage Orders</h3>
+            </div>
+            
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-sm text-gray-600">
+                <thead className="bg-gray-50 text-xs uppercase font-semibold text-gray-500">
+                  <tr>
+                    <th className="px-6 py-4">Order ID</th>
+                    <th className="px-6 py-4">User</th>
+                    <th className="px-6 py-4">Total</th>
+                    <th className="px-6 py-4">Status</th>
+                    <th className="px-6 py-4">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map(order => (
+                    <tr key={order._id} className="border-b border-gray-50 hover:bg-gray-50 transition">
+                      <td className="px-6 py-4 font-mono text-xs">{order._id}</td>
+                      <td className="px-6 py-4">{order.user ? order.user.name : 'Guest'}</td>
+                      <td className="px-6 py-4">${order.totalPrice.toFixed(2)}</td>
+                      <td className="px-6 py-4">
+                        <span className={`px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full ${
+                          order.status === 'Delivered' ? 'bg-green-100 text-green-700' : 
+                          order.status === 'Shipped' ? 'bg-blue-100 text-blue-700' : 'bg-yellow-100 text-yellow-700'
+                        }`}>
+                          {order.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <select 
+                          className="border border-gray-200 rounded p-1 text-xs focus:outline-none"
+                          value={order.status}
+                          onChange={(e) => handleUpdateOrderStatus(order._id, e.target.value)}
+                        >
+                          <option value="Pending">Pending</option>
+                          <option value="Processing">Processing</option>
+                          <option value="Shipped">Shipped</option>
+                          <option value="Delivered">Delivered</option>
+                        </select>
+                      </td>
+                    </tr>
+                  ))}
+                  {orders.length === 0 && (
+                    <tr>
+                      <td colSpan="5" className="px-6 py-8 text-center text-gray-500">No orders found.</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>
