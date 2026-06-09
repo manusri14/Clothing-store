@@ -1,10 +1,12 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { X, Trash2 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const CartDrawer = () => {
   const { isCartOpen, toggleCart, cartItems, removeFromCart, total } = useCart();
+  const navigate = useNavigate();
 
   return (
     <AnimatePresence>
@@ -63,12 +65,18 @@ const CartDrawer = () => {
             </div>
 
             {cartItems.length > 0 && (
-              <div className="p-6 border-t border-gray-100 bg-gray-50">
+              <div className="p-6 border-t border-gray-100 bg-gray-50 pb-28 md:pb-6">
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-lg text-gray-600 font-medium">Total</span>
                   <span className="text-2xl font-bold text-premium-dark">${total.toFixed(2)}</span>
                 </div>
-                <button className="w-full py-4 bg-black text-white uppercase font-bold tracking-wider rounded-full shadow-lg hover:shadow-xl hover:bg-gray-800 transition-all transform hover:-translate-y-1">
+                <button 
+                  onClick={() => {
+                    toggleCart();
+                    navigate('/checkout');
+                  }}
+                  className="w-full py-4 bg-black text-white uppercase font-bold tracking-wider rounded-full shadow-lg hover:shadow-xl hover:bg-gray-800 transition-all transform hover:-translate-y-1"
+                >
                   Checkout
                 </button>
               </div>

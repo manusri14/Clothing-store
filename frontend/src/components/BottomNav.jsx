@@ -38,15 +38,6 @@ const BottomNav = () => {
           <span className="text-[9px] font-bold uppercase tracking-wider">AI</span>
         </Link>
 
-        <button onClick={toggleCart} className="flex flex-col items-center gap-1 transition-colors hover:text-black relative">
-          <ShoppingBag size={20} />
-          {cartCount > 0 && (
-            <span className="absolute -top-1 -right-1 bg-black text-white text-[9px] font-bold rounded-full h-3.5 w-3.5 flex items-center justify-center">
-              {cartCount}
-            </span>
-          )}
-          <span className="text-[9px] font-bold uppercase tracking-wider">Cart</span>
-        </button>
       </div>
     </div>
   );

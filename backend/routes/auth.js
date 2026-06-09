@@ -4,6 +4,26 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { protect } = require('../middleware/auth');
+const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('cloudinary').v2;
+require('dotenv').config({ path: '../.env' }); // Make sure we load root .env if needed, though server.js usually loads it.
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'clothing_store_profiles',
+    allowedFormats: ['jpg', 'png', 'jpeg'],
+  },
+});
+
+const upload = multer({ storage: storage });
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -49,6 +69,8 @@ router.post('/register', async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        address: user.address,
+        profilePic: user.profilePic,
         token: generateToken(user._id),
       });
     } else {
@@ -71,6 +93,8 @@ router.post('/login', async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        address: user.address,
+        profilePic: user.profilePic,
         token: generateToken(user._id),
       });
     } else {
@@ -90,9 +114,49 @@ router.get('/me', protect, async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
+      address: user.address,
+      profilePic: user.profilePic,
     });
   } else {
     res.status(404).json({ message: 'User not found' });
+  }
+});
+
+// @route   PUT /api/auth/profile
+router.put('/profile', protect, upload.single('profilePic'), async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.address = req.body.address || user.address;
+
+      if (req.body.password) {
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(req.body.password, salt);
+      }
+
+      if (req.file) {
+        user.profilePic = req.file.path;
+      }
+
+      const updatedUser = await user.save();
+
+      res.json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        role: updatedUser.role,
+        address: updatedUser.address,
+        profilePic: updatedUser.profilePic,
+        token: generateToken(updatedUser._id),
+      });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 

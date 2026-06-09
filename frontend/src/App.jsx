@@ -13,8 +13,12 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminRoute from './components/AdminRoute';
 import BottomNav from './components/BottomNav';
+import Checkout from './pages/Checkout';
+import Orders from './pages/Orders';
+import Profile from './pages/Profile';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   useEffect(() => {
@@ -47,6 +51,7 @@ function App() {
       <CartProvider>
         <Router>
           <div className="bg-premium-light min-h-screen text-premium-dark relative w-full pb-16 md:pb-0">
+            <Toaster />
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -56,6 +61,9 @@ function App() {
               <Route path="/ai-stylist" element={<AiStylist />} />
               <Route path="/login" element={<UserLogin />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={
                 <AdminRoute>

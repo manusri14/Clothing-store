@@ -41,9 +41,20 @@ const Navbar = () => {
 
           <div className="flex items-center space-x-6">
             {user ? (
-              <button onClick={logout} className="text-gray-600 hover:text-red-500 transition-colors" title={`Logout ${user.name}`}>
-                <LogOut size={20} />
-              </button>
+              <div className="flex items-center gap-4">
+                <Link to="/orders" className="hidden md:block text-xs font-bold uppercase tracking-widest text-gray-600 hover:text-black">Orders</Link>
+                <Link to="/profile" className="hidden md:block text-xs font-bold uppercase tracking-widest text-gray-600 hover:text-black">Profile</Link>
+                <Link to="/profile" className="md:hidden text-gray-600 hover:text-black">
+                  {user.profilePic ? (
+                    <img src={user.profilePic} alt="Profile" className="w-6 h-6 rounded-full object-cover" />
+                  ) : (
+                    <User size={20} />
+                  )}
+                </Link>
+                <button onClick={logout} className="text-gray-600 hover:text-red-500 transition-colors ml-2" title={`Logout ${user.name}`}>
+                  <LogOut size={20} />
+                </button>
+              </div>
             ) : (
               <Link to="/login" className="text-gray-600 hover:text-black transition-colors" title="Login">
                 <User size={20} />

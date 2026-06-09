@@ -5,7 +5,7 @@ const { protect } = require('../middleware/auth');
 
 // @route   POST /api/orders
 router.post('/', protect, async (req, res) => {
-  const { orderItems, totalPrice } = req.body;
+  const { orderItems, totalPrice, shippingAddress } = req.body;
 
   if (orderItems && orderItems.length === 0) {
     return res.status(400).json({ message: 'No order items' });
@@ -15,6 +15,7 @@ router.post('/', protect, async (req, res) => {
         user: req.user._id,
         orderItems,
         totalPrice,
+        shippingAddress,
       });
 
       const createdOrder = await order.save();
