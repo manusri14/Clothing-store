@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, User, Sparkles, LayoutDashboard } from 'lucide-react';
+import { ShoppingBag, User, Sparkles, LayoutDashboard, LogOut } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -8,7 +8,7 @@ import CartDrawer from './CartDrawer';
 
 const Navbar = () => {
   const { cartItems, toggleCart } = useCart();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const cartCount = cartItems.reduce((acc, item) => acc + item.qty, 0);
 
   return (
@@ -40,9 +40,15 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center space-x-6">
-            <Link to="/login" className="text-gray-600 hover:text-black transition-colors">
-              <User size={20} />
-            </Link>
+            {user ? (
+              <button onClick={logout} className="text-gray-600 hover:text-red-500 transition-colors" title={`Logout ${user.name}`}>
+                <LogOut size={20} />
+              </button>
+            ) : (
+              <Link to="/login" className="text-gray-600 hover:text-black transition-colors" title="Login">
+                <User size={20} />
+              </Link>
+            )}
             <button onClick={toggleCart} className="text-gray-600 hover:text-black transition-colors relative">
               <ShoppingBag size={20} />
               {cartCount > 0 && (
