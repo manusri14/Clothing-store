@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 
-const UserLogin = () => {
+const Signup = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth();
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    const res = await login(email, password);
+    const res = await register(name, email, password);
     if (res.success) {
       window.location.href = '/'; // Simple redirect to home
     } else {
@@ -28,9 +30,9 @@ const UserLogin = () => {
         className="max-w-md w-full bg-white p-8 rounded-xl shadow-sm border border-gray-100 mt-20"
       >
         <h2 className="text-3xl font-bold tracking-tight text-premium-dark uppercase text-center mb-2">
-          Welcome Back
+          Create Account
         </h2>
-        <p className="text-center text-gray-500 mb-8 text-sm">Sign in to your Manu's account</p>
+        <p className="text-center text-gray-500 mb-8 text-sm">Join Manu's today</p>
 
         {error && (
           <div className="bg-red-50 text-red-500 p-3 rounded mb-6 text-sm text-center">
@@ -38,7 +40,17 @@ const UserLogin = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <input 
+              type="text" 
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-black"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <input 
@@ -61,18 +73,18 @@ const UserLogin = () => {
           </div>
           <button 
             type="submit"
-            className="w-full py-3 bg-black text-white font-bold uppercase tracking-wider rounded hover:bg-gray-800 transition"
+            className="w-full py-3 mt-4 bg-black text-white font-bold uppercase tracking-wider rounded hover:bg-gray-800 transition"
           >
-            Sign In
+            Sign Up
           </button>
         </form>
 
         <div className="mt-6 text-center text-sm text-gray-500">
-          <p>Don't have an account? <Link to="/signup" className="underline hover:text-black cursor-pointer">Sign Up</Link></p>
+          <p>Already have an account? <Link to="/login" className="underline hover:text-black cursor-pointer">Sign In</Link></p>
         </div>
       </motion.div>
     </div>
   );
 };
 
-export default UserLogin;
+export default Signup;

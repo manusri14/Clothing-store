@@ -8,6 +8,7 @@ import Category from './pages/Category';
 import ProductDetail from './pages/ProductDetail';
 import AiStylist from './pages/AiStylist';
 import UserLogin from './pages/UserLogin';
+import Signup from './pages/Signup';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminRoute from './components/AdminRoute';
@@ -54,6 +55,7 @@ function App() {
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/ai-stylist" element={<AiStylist />} />
               <Route path="/login" element={<UserLogin />} />
+              <Route path="/signup" element={<Signup />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={
                 <AdminRoute>
